@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { baseURL } from "../../env";
 import { IListing } from "interfaces";
-import { fetchPostings } from "utils/APIs";
-import { sortListings } from "utils/sortListings";
 
 export default function Notes() {
   const [data, setData] = useState<IListing[]>();
   useEffect(() => {
-    fetchPostings().then((listings) => setData(sortListings(listings)));
+    axios
+      .get(`${baseURL}/api/notes`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   return (

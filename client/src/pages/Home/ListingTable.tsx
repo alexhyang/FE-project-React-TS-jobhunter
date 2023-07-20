@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IListing } from "../../interfaces";
-import { sortListings } from "../../utils/sortListings";
 
 export default function ListingTable(props: { data: IListing[] }) {
   const [descendingId, setDescendingId] = useState<boolean>(false);
@@ -10,11 +9,7 @@ export default function ListingTable(props: { data: IListing[] }) {
     setDescendingId(!descendingId);
   };
 
-  let data = props.data;
-
-  useEffect(() => {
-    data = sortListings(data, descendingId);
-  }, [descendingId]);
+  const data = props.data;
 
   return (
     <table className="table table-striped">

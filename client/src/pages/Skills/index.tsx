@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { baseURL } from "../../env";
+
 import WordCloud from "./WordCloud";
 import "./skills.css";
-
-import { fetchSkills } from "utils/APIs";
 
 export default function Skills() {
   const [data, setData] = useState<{ [key: string]: number }>({});
   useEffect(() => {
-    fetchSkills().then((value) => setData(value));
+    axios
+      .get(`${baseURL}/api/skills`)
+      .then((response) => {
+        console.log(response.data);
+        setData(response.data);
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   return (

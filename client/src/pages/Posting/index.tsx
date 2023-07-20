@@ -1,24 +1,23 @@
-import React from "react";
-import PostingCard from "./PostingCard";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
+import { baseURL } from "../../env";
+
+import PostingCard from "./PostingCard";
 import { IListing } from "../../interfaces";
-import { getPostingById } from "../../utils/queryPostings";
 
-export default function Posting(props: { data: IListing[] | undefined }) {
+export default function Posting() {
   const { id } = useParams<string>();
-  const errorMessage = <div>Error occurs when fetching posting</div>;
+  const [data, setData] = useState<IListing>();
+  useEffect(() => {
+    axios
+      .get(`${baseURL}/api/postings/${id}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => console.log(error));
+  });
 
-  if (props.data == undefined) {
-    return errorMessage;
-  } else if (id == undefined) {
-    return errorMessage;
-  } else {
-    const idNum = parseInt(id);
-    if (idNum > -1) {
-      const posting = getPostingById(idNum, props.data);
-      return <PostingCard data={posting} />;
-    } else {
-      return <div>Posting page</div>;
-    }
-  }
+  if (!data) return <h1>{"Error occurs when fetching posting"}</h1>;
+  return <PostingCard data={data} />;
 }
