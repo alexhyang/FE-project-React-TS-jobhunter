@@ -21,7 +21,7 @@ export default function TopNav() {
             <Nav.Link href="https://www.linkedin.com/jobs/">LinkedIn</Nav.Link>
             <NavLink to="skills" className="nav-link">Skills</NavLink>
             <NavLink to="notes" className="nav-link">Notes</NavLink>
-            <NavLink to="posting" className="nav-link">Add New Posting</NavLink>
+            <NavLink to="postings" className="nav-link">Add New Posting</NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>
