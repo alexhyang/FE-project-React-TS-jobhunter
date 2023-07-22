@@ -1,14 +1,11 @@
 import React from "react";
 
-interface Props {
-  data: { [key: string]: number };
-}
+import { Skill } from "./interfaces";
 
-import { Skill } from "interfaces";
-import { sortSkills } from "utils/sortSkills";
-
-export default function WordCloud(props: Props) {
-  const skills: Skill[] = sortSkills(props.data);
+export default function WordCloud(props: {
+  data: Skill[]
+}) {
+  const skills = props.data;
   console.log(skills);
   return (
     <div className="cloud-wrapper">
@@ -18,18 +15,15 @@ export default function WordCloud(props: Props) {
         aria-label="Webdev tag cloud"
         data-show-value="true"
       >
-        {skills.map(function (skill) {
-          const id = skill[0];
-          const name = skill[1];
-          const count = skill[2];
-          const size = Math.log(count) + 1;
+        {skills.map(function (skill, index) {
+          const size = Math.log(skill.count) + 1;
           return (
             <li
-              key={id}
-              data-weight={count > 25 ? `(${count})` : ""}
+              key={index}
+              data-weight={skill.count > 25 ? `(${skill.count})` : ""}
               style={{ "--size": size } as React.CSSProperties}
             >
-              {name}
+              {skill.name}
             </li>
           );
         })}
