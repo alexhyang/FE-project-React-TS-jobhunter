@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import { Nav, Footer } from "components";
 import { Home, Skills, Notes, Posting, NewPosting } from "pages";
