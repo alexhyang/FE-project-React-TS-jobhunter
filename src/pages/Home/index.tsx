@@ -20,7 +20,7 @@ export default function Home() {
   if (!data || data.length == 0) return <h1>No Posting found</h1>;
   return (
     <>
-      <h1>{`Postings List ${data.length} in total`}</h1>
+      <h1>{`Posting List (${data.length} in total)`}</h1>
       <ListingTable data={data} />
     </>
   );
