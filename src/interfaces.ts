@@ -1,15 +1,26 @@
-export interface IListing {
-  _id: number;
+interface PostingBasic {
+  postingUrl: string;
   jobTitle: string;
   company: string;
   location: string;
-  jobLevel: string;
   jobType: string[];
-  applicationDueDate: Date;
-  responsibilities: string[];
-  qualifications: string[];
-  skills: string[];
-  postingUrl: string;
+  jobLevel: string;
+  applicationDueDate: string;
   other?: string;
 }
 
+export interface IPostingPost extends PostingBasic {
+  responsibilities: string[];
+  qualifications: string[];
+  skills: string[];
+}
+
+export interface IPostingGet extends IPostingPost {
+  _id: string;
+}
+
+export interface IFormData extends PostingBasic {
+  responsibilities: string;
+  qualifications: string;
+  skills: string;
+}

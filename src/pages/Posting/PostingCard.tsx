@@ -1,7 +1,7 @@
 import React from "react";
-import { IListing } from "../../interfaces";
+import { IPostingGet } from "interfaces";
 
-export default function PostingCard(props: { data: IListing }) {
+export default function PostingCard(props: { data: IPostingGet }) {
   const {
     jobTitle,
     company,

@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom";
 import { baseURL } from "../../env";
 
 import PostingCard from "./PostingCard";
-import { IListing } from "../../interfaces";
+import { IPostingGet } from "interfaces";
 
 export default function Posting() {
   const { id } = useParams<string>();
-  const [data, setData] = useState<IListing>();
+  const [data, setData] = useState<IPostingGet>();
   useEffect(() => {
     axios
       .get(`${baseURL}/api/postings/${id}`)

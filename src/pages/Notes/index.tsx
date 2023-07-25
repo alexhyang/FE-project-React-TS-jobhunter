@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../../env";
-import { IListing } from "interfaces";
+import { IPostingGet } from "interfaces";
 
 export default function Notes() {
-  const [data, setData] = useState<IListing[]>();
+  const [data, setData] = useState<IPostingGet[]>();
   useEffect(() => {
     axios
       .get(`${baseURL}/api/notes`)

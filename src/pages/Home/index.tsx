@@ -3,10 +3,10 @@ import axios from "axios";
 import { baseURL } from "../../env";
 
 import ListingTable from "./ListingTable";
-import { IListing } from "interfaces";
+import { IPostingGet } from "interfaces";
 
 export default function Home() {
-  const [data, setData] = useState<IListing[]>();
+  const [data, setData] = useState<IPostingGet[]>();
   useEffect(() => {
     axios
       .get(`${baseURL}/api/postings`)

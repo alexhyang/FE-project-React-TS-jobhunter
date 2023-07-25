@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { IListing } from "../../interfaces";
+import { IPostingGet } from "interfaces";
 
-export default function ListingTable(props: { data: IListing[] }) {
+export default function ListingTable(props: { data: IPostingGet[] }) {
   const [descendingId, setDescendingId] = useState<boolean>(false);
 
   const toggleDescendingId = () => {
@@ -28,7 +28,7 @@ export default function ListingTable(props: { data: IListing[] }) {
         </tr>
       </thead>
       <tbody>
-        {data.map((posting: IListing) => (
+        {data.map((posting: IPostingGet) => (
           <tr key={posting._id}>
             <td>{posting._id}</td>
             <td>
