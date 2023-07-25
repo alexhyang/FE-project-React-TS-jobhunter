@@ -2,9 +2,7 @@ import React from "react";
 
 import { Skill } from "./interfaces";
 
-export default function WordCloud(props: {
-  data: Skill[]
-}) {
+export default function WordCloud(props: { data: Skill[] }) {
   const skills = props.data;
   console.log(skills);
   return (

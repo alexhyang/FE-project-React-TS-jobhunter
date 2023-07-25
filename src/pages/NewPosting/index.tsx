@@ -5,13 +5,13 @@ import FormReactBoots from "./FormReactBoots";
 export default function New() {
   const options = [
     {
-      value: "Controlled",
+      value: "Controlled"
     },
     {
-      value: "FormReactBoots",
-    },
+      value: "FormReactBoots"
+    }
     // {
-      // value: "FormMUI",
+    // value: "FormMUI",
     // },
   ];
   const [selectedOption, setSelectOption] = useState<string>("Controlled");
@@ -22,9 +22,7 @@ export default function New() {
 
   return (
     <div>
-      <h1>
-        Add New Posting
-      </h1>
+      <h1>Add New Posting</h1>
       {options.map(({ value }) => (
         <label key={value}>
           <input

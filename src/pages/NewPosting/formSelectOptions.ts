@@ -6,7 +6,7 @@ export const TYPE_OPTIONS = [
   { id: 5, value: "Contract", label: "Contract" },
   { id: 6, value: "Internship", label: "Internship" },
   { id: 7, value: "Co-op", label: "Co-op" },
-  { id: 8, value: "Other", label: "Other" },
+  { id: 8, value: "Other", label: "Other" }
 ];
 
 export const LEVEL_OPTIONS = [
@@ -15,5 +15,5 @@ export const LEVEL_OPTIONS = [
   { id: 3, value: "Intermediate", label: "Intermediate (3 ~ 5 yrs)" },
   { id: 4, value: "Senior", label: "Senior (> 5 yrs)" },
   { id: 5, value: "Intern", label: "Intern" },
-  { id: 6, value: "Other", label: "Other" },
+  { id: 6, value: "Other", label: "Other" }
 ];
