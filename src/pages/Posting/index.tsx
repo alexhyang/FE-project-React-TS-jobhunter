@@ -16,7 +16,7 @@ export default function Posting() {
         setData(response.data);
       })
       .catch((error) => console.log(error));
-  });
+  }, []);
 
   if (!data) return <h1>{"Error occurs when fetching posting"}</h1>;
   return <PostingCard data={data} />;

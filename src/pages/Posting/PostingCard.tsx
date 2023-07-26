@@ -17,16 +17,30 @@ export default function PostingCard(props: { data: IPostingGet }) {
   } = props.data;
   return (
     <div>
-      <h3>{jobTitle}</h3>
-      <h3>{company}</h3>
-      <h3>{location}</h3>
-      <h3>{jobLevel}</h3>
-      <h3>{jobType}</h3>
-      <p>{applicationDueDate.toString()}</p>
-      <p>{responsibilities}</p>
-      <p>{qualifications}</p>
-      <p>{skills}</p>
-      <p>{postingUrl}</p>
+      <h3>{jobTitle}<span><a target="_blank" rel="noreferrer" href={postingUrl}>link</a></span></h3>
+      <p>Company: {company}</p>
+      <p>Location: {location}</p>
+      <p>Job Level: {jobLevel}</p>
+      <p>Job Type: {jobType}</p>
+      <p>Due Date: {applicationDueDate.slice(0, 10)}</p>
+      <p>Responsibilities</p>
+      <ul>
+        {responsibilities.map((elem, index) => (
+          <li key={index}>{elem}</li>
+        ))}
+      </ul>
+      <p>Qualifications</p>
+      <ul>
+        {qualifications.map((elem, index) => (
+          <li key={index}>{elem}</li>
+        ))}
+      </ul>
+      <p>Skills</p>
+      <ul>
+        {skills.map((elem, index) => (
+          <li key={index}>{elem}</li>
+        ))}
+      </ul>
       <p>{other}</p>
     </div>
   );
