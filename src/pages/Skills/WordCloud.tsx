@@ -21,7 +21,7 @@ export default function WordCloud(props: { data: Skill[] }) {
               data-weight={skill.count > 25 ? `(${skill.count})` : ""}
               style={{ "--size": size } as React.CSSProperties}
             >
-              {skill.name}
+              {skill._id}
             </li>
           );
         })}

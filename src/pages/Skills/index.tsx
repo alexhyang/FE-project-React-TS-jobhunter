@@ -7,21 +7,30 @@ import WordCloud from "./WordCloud";
 import "./skills.css";
 
 export default function Skills() {
+  const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Skill[]>();
+  const [error, setError] = useState<string>();
   useEffect(() => {
     axios
-      .get(`${baseURL}/api/skills`)
+      .get(`${baseURL}/api/summaries/skills`)
       .then((response) => {
-        console.log(response.data);
         setData(response.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setError("Error when fetching postings");
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (
     <>
       <h1>Skills</h1>
-      {data ? <WordCloud data={data} /> : <p>Loading...</p>}
+      {loading && <p>Loading...</p>}
+      {data && <WordCloud data={data} />}
+      {error && <p>{error}</p>}
     </>
   );
 }
