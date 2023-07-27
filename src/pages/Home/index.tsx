@@ -5,11 +5,20 @@ import { baseURL } from "../../env";
 import ListingTable from "./ListingTable";
 import { IPostingGet } from "interfaces";
 
+const fields = [
+  "jobTitle",
+  "jobLevel",
+  "company",
+  "location",
+  "applicationDueDate",
+  "other"
+]
+
 export default function Home() {
   const [data, setData] = useState<IPostingGet[]>();
   useEffect(() => {
     axios
-      .get(`${baseURL}/api/postings`)
+      .get(`${baseURL}/api/postings?limit=20&sort=-applicationDueDate&fields=${fields.toString()}`)
       .then((response) => {
         console.log(response.data);
         setData(response.data);
