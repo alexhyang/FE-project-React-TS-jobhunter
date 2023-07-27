@@ -1,48 +1,36 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { baseURL } from "../../env";
+import { baseURL } from "env";
 import { IPostingGet } from "interfaces";
 
+import NotesTable from "./NotesTable"
+
 export default function Notes() {
+  const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<IPostingGet[]>();
+  const [error, setError] = useState<string>();
+
   useEffect(() => {
     axios
-      .get(`${baseURL}/api/notes`)
+      .get(`${baseURL}/api/summaries/notes`)
       .then((response) => {
         setData(response.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setError("Error when fetching postings");
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (
-    <div>
+    <>
       <h1>Notes</h1>
-      {data ? (
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Position</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((posting) =>
-              posting.other ? (
-                <tr key={posting._id}>
-                  <td>{posting._id}</td>
-                  <td>
-                    <a href={posting.postingUrl}>{posting.jobTitle}</a>
-                  </td>
-                  <td>{posting.other}</td>
-                </tr>
-              ) : null
-            )}
-          </tbody>
-        </table>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+      {loading && <p>Loading...</p>}
+      {data && <NotesTable data={data} />}
+      {error && <p>{error}</p>}
+    </>
   );
 }
