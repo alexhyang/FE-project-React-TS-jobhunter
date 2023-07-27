@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { baseURL } from "../../env";
+import { baseURL } from "env";
 
 import ListingTable from "./ListingTable";
 import { IPostingGet } from "interfaces";
@@ -12,25 +12,36 @@ const fields = [
   "location",
   "applicationDueDate",
   "other"
-]
+];
 
 export default function Home() {
+  const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<IPostingGet[]>();
+  const [error, setError] = useState<string>();
+
   useEffect(() => {
     axios
-      .get(`${baseURL}/api/postings?limit=20&sort=-applicationDueDate&fields=${fields.toString()}`)
+      .get(
+        `${baseURL}/api/postings?limit=20&sort=-applicationDueDate&fields=${fields.toString()}`
+      )
       .then((response) => {
-        console.log(response.data);
         setData(response.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setError("Error when fetching postings");
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
-  if (!data || data.length == 0) return <h1>No Posting found</h1>;
   return (
     <>
-      <h1>{`Posting List (${data.length} in total)`}</h1>
-      <ListingTable data={data} />
+      <h1>Postings</h1>
+      {loading && <p>Loading...</p>}
+      {data && <ListingTable data={data} />}
+      {error && <p>{error}</p>}
     </>
   );
 }
