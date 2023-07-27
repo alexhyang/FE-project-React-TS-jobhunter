@@ -17,7 +17,7 @@ export default function PostingCard(props: { data: IPostingGet }) {
   } = props.data;
   return (
     <div>
-      <h3>{jobTitle}<span><a target="_blank" rel="noreferrer" href={postingUrl}>link</a></span></h3>
+      <h3>{jobTitle}<span><a target="_blank" rel="noopener noreferrer" href={postingUrl}>link</a></span></h3>
       <p>Company: {company}</p>
       <p>Location: {location}</p>
       <p>Job Level: {jobLevel}</p>
