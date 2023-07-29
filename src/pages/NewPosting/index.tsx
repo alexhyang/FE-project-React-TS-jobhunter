@@ -1,28 +1,30 @@
-import React, { useState, ChangeEvent } from "react";
+// import React, { useState, ChangeEvent } from "react";
+import React from "react";
 import Form from "./FormControlled";
-import FormReactBoots from "./FormReactBoots";
+// import FormReactBoots from "./FormReactBoots";
 
 export default function New() {
-  const options = [
-    {
-      value: "Controlled"
-    },
-    {
-      value: "FormReactBoots"
-    }
+  // const options = [
     // {
-    // value: "FormMUI",
+      // value: "Controlled"
     // },
-  ];
-  const [selectedOption, setSelectOption] = useState<string>("Controlled");
+    // {
+      // value: "FormReactBoots"
+    // }
+    // // {
+    // // value: "FormMUI",
+    // // },
+  // ];
+  // const [selectedOption, setSelectOption] = useState<string>("Controlled");
 
-  const handleOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectOption(e.target.value);
-  };
+  // const handleOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // setSelectOption(e.target.value);
+  // };
 
   return (
     <div>
       <h1>Add New Posting</h1>
+      {/*
       {options.map(({ value }) => (
         <label key={value}>
           <input
@@ -36,6 +38,8 @@ export default function New() {
       ))}
       {selectedOption === "Controlled" && <Form />}
       {selectedOption === "FormReactBoots" && <FormReactBoots />}
+      */}
+      <Form />
     </div>
   );
 }
