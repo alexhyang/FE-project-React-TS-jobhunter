@@ -88,7 +88,7 @@ export default function PostingForm() {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}/api/summaries/skills?option=unique`)
+      .get(`${baseURL}/api/summaries/skills`)
       .then((response) => {
         setUniqueSkills(response.data);
       })
