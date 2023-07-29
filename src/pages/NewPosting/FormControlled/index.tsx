@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import { IPostingPost, IFormData } from "interfaces";
 import { baseURL } from "env";
 import { TYPE_OPTIONS, LEVEL_OPTIONS } from "../formSelectOptions";
 import { normalizeFormData } from "../helperFunc";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 export default function PostingForm() {
+  const skillRef = useRef<HTMLInputElement>(null);
+  const [uniqueSkills, setUniqueSkills] = useState<string[]>([]);
   const [formattedTextarea, setFormattedTextarea] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertVariant, setAlertVariant] = useState<string>("");
@@ -34,6 +37,8 @@ export default function PostingForm() {
 
   const onSubmit: SubmitHandler<IFormData> = (data) => {
     const dataNormalized: IPostingPost = normalizeFormData(data);
+    console.log("Form Data: ", data);
+    console.log("Submit Data: ", dataNormalized);
     axios
       .post(`${baseURL}/api/postings`, dataNormalized)
       .then((response) => {
@@ -61,11 +66,36 @@ export default function PostingForm() {
         text.replaceAll(/[-][\s]+/g, "").replace(/(\s*<br>)*[\n]+/g, "\n- ")
       );
     };
-
     setValue("responsibilities", convertToHTML(getValues("responsibilities")));
     setValue("qualifications", convertToHTML(getValues("qualifications")));
     setFormattedTextarea(true);
   };
+
+  const addExistingSkill = () => {
+    const skill = skillRef.current?.value || "";
+    const prevSkills = getValues("skills");
+    if (skill !== "") {
+      if (prevSkills == "") {
+        setValue("skills", skill);
+      } else {
+        setValue("skills", getValues("skills") + `, ${skill}`);
+      }
+    }
+    if (skillRef.current) {
+      skillRef.current.value = "";
+    }
+  };
+
+  useEffect(() => {
+    axios
+      .get(`${baseURL}/api/summaries/skills?option=unique`)
+      .then((response) => {
+        setUniqueSkills(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -78,6 +108,7 @@ export default function PostingForm() {
       {showAlert && (
         <div className={`alert alert-${alertVariant}`}>{alertMessage}</div>
       )}
+
       <div className="mb-3">
         <label className="form-label">URL*</label>
         <input
@@ -86,6 +117,7 @@ export default function PostingForm() {
           {...register("postingUrl")}
         />
       </div>
+
       <div className="mb-3 row">
         <div className="col">
           <label className="form-label">Title*</label>
@@ -112,6 +144,7 @@ export default function PostingForm() {
           />
         </div>
       </div>
+
       <div className="mb-3 row">
         <div className="col">
           <label className="form-label">Type*</label>
@@ -142,6 +175,7 @@ export default function PostingForm() {
           />
         </div>
       </div>
+
       <div className="mb-3">
         <label className="form-label">Responsibilities*</label>
         <textarea
@@ -162,6 +196,32 @@ export default function PostingForm() {
         <label className="form-label">Skills*</label>
         <input className="form-control" {...register("skills")} />
       </div>
+      <div className="row row-cols-auto mb-3">
+        <div className="col">
+          <input
+            className="form-control"
+            ref={skillRef}
+            placeholder="Search skills"
+            type="text"
+            list="skillsList"
+          />
+          <datalist id="skillsList">
+            {uniqueSkills.map((skill) => (
+              <option key={skill} value={skill} />
+            ))}
+          </datalist>
+        </div>
+        <div className="col">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={addExistingSkill}
+          >
+            Add Skill
+          </button>
+        </div>
+      </div>
+
       <div className="mb-3">
         <label className="form-label">Other</label>
         <input className="form-control" {...register("other")} />

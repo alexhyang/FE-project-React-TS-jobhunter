@@ -31,7 +31,7 @@ const normalizeFormData = (data: IFormData): IPostingPost => {
     applicationDueDate,
     responsibilities: normalizeTextarea(responsibilities),
     qualifications: normalizeTextarea(qualifications),
-    skills: skills.split(/\s*,\s*/),
+    skills: skills.split(/\s*,\s*/).filter(skill => skill !== ""),
     other
   };
   return dataNormalized;
