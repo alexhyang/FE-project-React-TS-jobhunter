@@ -12,7 +12,7 @@ export default function Skills() {
   const [error, setError] = useState<string>();
   useEffect(() => {
     axios
-      .get(`${baseURL}/api/summaries/skills`)
+      .get(`${baseURL}/api/summaries/skills/count?sort=-count&limit=30`)
       .then((response) => {
         setData(response.data);
       })
